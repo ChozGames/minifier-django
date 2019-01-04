@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('convert', views.convert, name="convert"),
-    # path('article/<int:id_article>', views.view_article), 
+    path('redirectcode', views.redirectcode, name="redirectcode"), 
     # path('articles/<str:tag>', views.list_articles_by_tag), 
     # path('articles/<int:year>/<int:month>', views.list_articles), 
     # path('google', views.google), 

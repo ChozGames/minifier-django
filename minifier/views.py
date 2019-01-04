@@ -1,32 +1,45 @@
-from django.shortcuts import render
-from minifier.forms import UrlForm
+from django.shortcuts import render, redirect, get_object_or_404
+from minifier.forms import UrlForm, CodeForm
 from minifier.models import Url
-
-import random
-import string
-
-def generer(nb_caracteres):
-    caracteres = string.ascii_letters + string.digits
-    aleatoire = [random.choice(caracteres) for _ in range(nb_caracteres)]
-    
-    return ''.join(aleatoire)
+from .services import utils
 
 def convert(request):
     check = False
     newcode = ""
     form = UrlForm(request.POST or None)
+    formredirection = CodeForm(request.POST or None)
 
     if form.is_valid(): 
 
         url = Url() 
         url.url = form.cleaned_data["url"]
         url.pseudo = form.cleaned_data["pseudo"]
-        url.code = generer(4)
+        url.code = utils.generer(4)
         url.save()
 
         check = True
         newcode = url.code
         url.save()
+
+        form = UrlForm()
+        formredirection = CodeForm()
+
     
 
+    urls = Url.objects.all()
     return render(request, 'minifier/convert.html', locals())
+
+def redirectcode(request):
+    formredirection = CodeForm(request.POST or None)
+
+    if formredirection.is_valid():
+        code = formredirection.cleaned_data["code"]
+
+        try:
+            url = Url.objects.get(code=code)
+            return redirect(url.url)
+
+        except Url.DoesNotExist:
+            return redirect(convert)
+
+    return redirect(convert)

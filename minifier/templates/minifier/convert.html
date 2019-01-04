@@ -8,4 +8,21 @@
     <input type="submit" value="Submit" />
 </form>
 
+<p>Pour être redirigé entré votre code</p>
+<form action="{% url "redirectcode" %}" method="post">
+    {% csrf_token %}
+    {{ formredirection.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
 <p>Liste des urls minifié</p>
+
+{% for url in urls %}
+	<div class="url" style="border: 1px solid black; margin: 10px;">
+	    <p>{{ url.url }} -> {{ url.code }}</p>
+	    <p>{{ url.date }} crée par {{ url.pseudo }}</p>
+	    <p>Vues : {{ url.access }}</p>
+	</div>
+{% empty %}
+	<p>Aucune urls.</p>
+{% endfor %}
