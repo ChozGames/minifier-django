@@ -1,0 +1,11 @@
+{% if check %} Code transformé. Votre nouveau code est : {{ newcode }}{% endif %}
+
+<p>Création d'une URL minifié</p>
+
+<form action="{% url "convert" %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+<p>Liste des urls minifié</p>
