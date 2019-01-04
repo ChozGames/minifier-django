@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('convert', views.convert, name="convert"),
     path('redirectcode', views.redirectcode, name="redirectcode"), 
-    # path('articles/<str:tag>', views.list_articles_by_tag), 
+    path('m/<str:code>', views.urlredirect, name="geturl"), 
     # path('articles/<int:year>/<int:month>', views.list_articles), 
     # path('google', views.google), 
     # path('date', views.date_actuelle),

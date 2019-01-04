@@ -37,9 +37,21 @@ def redirectcode(request):
 
         try:
             url = Url.objects.get(code=code)
+            url.access += 1
+            url.save()
             return redirect(url.url)
 
         except Url.DoesNotExist:
             return redirect(convert)
 
     return redirect(convert)
+
+def urlredirect(request, code):
+    try:
+        url = Url.objects.get(code=code)
+        url.access += 1
+        url.save()
+        return redirect(url.url)
+
+    except Url.DoesNotExist:
+        return redirect(convert)

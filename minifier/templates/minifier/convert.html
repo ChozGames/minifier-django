@@ -19,7 +19,7 @@
 
 {% for url in urls %}
 	<div class="url" style="border: 1px solid black; margin: 10px;">
-	    <p>{{ url.url }} -> {{ url.code }}</p>
+	    <p>{{ url.url }} -> <a href="{% url "geturl" url.code %}" target=_blank>localhost:8000{% url "geturl" url.code %}</a></p>
 	    <p>{{ url.date }} crée par {{ url.pseudo }}</p>
 	    <p>Vues : {{ url.access }}</p>
 	</div>
